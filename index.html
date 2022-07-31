@@ -1,0 +1,127 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Form Demo</title>
+	<script type="text/javascript">
+		var course = "";
+
+		function check() {
+			var uid = document.getElementById("txtUID");
+			var pass = document.getElementById("txtPass");
+			var mob = document.getElementById("txtMob");
+			var email = document.getElementById("txtEmail");
+
+			xmlObj = new XMLHttpRequest();
+
+			if (xmlObj)
+				xmlObj.onreadystatechange = function () {
+
+					if (xmlObj.readyState == 4 && xmlObj.status == 200) {
+						var res = xmlObj.responseText;
+						document.getElementById("msg").innerHTML = res;
+						document.getElementById("msg").style.visibility = "visible";
+
+					}
+
+				};
+
+			xmlObj.open("GET", "http://localhost:8080/login/login.php?uid=" + uid.value +
+				"&pass=" + pass.value + "&mob=" + mob.value + "&email=" + email.value);
+			xmlObj.send();
+		}
+	</script>
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+	<h1 align="center">Registration Form</h1>
+
+	<form method="get" action="login.php">
+		<table width="300" border="0" align="center" cellpadding="5" style="border:thin rgb(0,102,153)">
+
+			<tr>
+				<td>Enter ID</td>
+
+				<td><input type="text" name="uid" placeholder="Enter UID" id="txtUID" /></td>
+			</tr>
+			<tr>
+				<td>Enter Password</td>
+				<td><input type="password" id="txtPass" name="pass" /></td>
+			</tr>
+			<tr>
+				<td>Enter Mobile</td>
+				<td><input type="text" maxlength="10" id="txtMob" name="mob" /></td>
+			</tr>
+			<tr>
+				<td>Enter Email ID</td>
+				<td><input type="text" id="txtEmail" name="email" /></td>
+			</tr>
+
+			<tr>
+				<td>Select Course</td>
+				<td>BCA<input type="radio" name="course" id="course" value="bca" onclick="setval(this)" />
+					BBA<input type="radio" name="course" id="course" value="bba" onclick="setval(this)" />
+
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan="2" align="center">
+					<input type="button" value="Login" onclick="check();" data-bs-toggle="modal"
+						data-bs-target="#exampleModal" />
+					<input type="reset" value="Clear Form" />
+				</td>
+
+			</tr>
+
+		</table>
+
+		<!-- <center>
+			<span id="msg" style="background-color:#f00; visibility: hidden;">DEMO TEXT</span>
+		</center> -->
+
+		<!-- **********Pop-Up Windows********** -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Form Preview</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div>
+							<p class="text-start" id="msg">
+							Data From PHP file
+						</p>
+					</div>
+				</div>
+				<div class=" modal-footer">
+								<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- **********Pop-Up Windows End********** -->
+
+	</form>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+	</script>
+</body>
+
+</html>
